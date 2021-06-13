@@ -4,7 +4,7 @@
 var ajaxUtils = {};
 
 
-// Returns an HTTP request object
+// Returns an HTTP request object (XHR)
 function getRequestObject() {
   if (window.XMLHttpRequest) {
     return (new XMLHttpRequest());

@@ -14,16 +14,15 @@ $(function () { // Same as document.addEventListener("DOMContentLoaded"...
 var dc = {};
 
 var homeHtmlUrl = "snippets/home-snippet.html";
-var allCategoriesUrl =
-  "https://davids-restaurant.herokuapp.com/categories.json";
+var allCategoriesUrl = "https://davids-restaurant.herokuapp.com/categories.json";
 var categoriesTitleHtml = "snippets/categories-title-snippet.html";
 var categoryHtml = "snippets/category-snippet.html";
-var menuItemsUrl =
-  "https://davids-restaurant.herokuapp.com/menu_items.json?category=";
+var menuItemsUrl = "https://davids-restaurant.herokuapp.com/menu_items.json?category=";
 var menuItemsTitleHtml = "snippets/menu-items-title.html";
 var menuItemHtml = "snippets/menu-item.html";
 
 // Convenience function for inserting innerHTML for 'select'
+// Fonction de commodité pour insérer innerHTML pour 'select'
 var insertHtml = function (selector, html) {
   var targetElem = document.querySelector(selector);
   targetElem.innerHTML = html;
@@ -63,30 +62,37 @@ var switchMenuToActive = function () {
 // On page load (before images or CSS)
 document.addEventListener("DOMContentLoaded", function (event) {
 
-// TODO: STEP 0: Look over the code from
-// *** start ***
-// to
-// *** finish ***
-// below.
-// We changed this code to retrieve all categories from the server instead of
-// simply requesting home HTML snippet. We now also have another function
-// called buildAndShowHomeHTML that will receive all the categories from the server
-// and process them: choose random category, retrieve home HTML snippet, insert that
-// random category into the home HTML snippet, and then insert that snippet into our
-// main page (index.html).
-//
-// TODO: STEP 1: Substitute [...] below with the *value* of the function buildAndShowHomeHTML,
-// so it can be called when server responds with the categories data.
 
-// *** start ***
-// On first load, show home view
+
+
+// ÉTAPE 0 : recherchez le code de
+// *** démarrer ***
+// à
+// *** terminer *** au-dessous
+
+
+// Nous avons modifié ce code pour récupérer toutes les catégories du serveur au lieu de
+// demander simplement un extrait HTML d'accueil. 
+// Nous avons maintenant aussi une autre fonction appelé buildAndShowHomeHTML qui recevra toutes les catégories du serveur
+// et les traitera : choisissez une catégorie aléatoire, récupérez l'extrait HTML d'accueil, insérez-le
+// catégorie aléatoire dans l'extrait HTML d'accueil, puis insérez cet extrait dans notre
+// page principale (index.html).
+//
+// ETAPE 1 : Substituer [...] ci-dessous par la *valeur* de la fonction buildAndShowHomeHTML,
+// afin qu'il puisse être appelé lorsque le serveur répond avec les données de catégories.
+
+// *** démarrer ***
+// *** Start *** 
+// Au premier chargement, afficher la vue d'accueil
+
 showLoading("#main-content");
 $ajaxUtils.sendGetRequest(
   allCategoriesUrl,
   [...], // ***** <---- TODO: STEP 1: Substitute [...] ******
-  true); // Explicitly setting the flag to get JSON from server processed into an object literal
+  true); // Définir explicitement l'indicateur pour que JSON du serveur soit traité dans un littéral d'objet
 });
-// *** finish **
+// *** terminer **
+// *** finish ****/
 
 
 // Builds HTML for the home page based on categories array
@@ -98,39 +104,40 @@ function buildAndShowHomeHTML (categories) {
     homeHtmlUrl,
     function (homeHtml) {
 
-      // TODO: STEP 2: Here, call chooseRandomCategory, passing it retrieved 'categories'
-      // Pay attention to what type of data that function returns vs what the chosenCategoryShortName
-      // variable's name implies it expects.
-      // var chosenCategoryShortName = ....
+     
 
+      //ÉTAPE 2 : Ici, appelez chooseRandomCategory, en lui passant les « catégories » récupérées
+       // Faites attention au type de données que la fonction renvoie par rapport à ce que le ChooseCategoryShortName
+       // le nom de la variable implique qu'elle attend.
+       // var selectedCategoryShortName = ....
 
-      // TODO: STEP 3: Substitute {{randomCategoryShortName}} in the home html snippet with the
-      // chosen category from STEP 2. Use existing insertProperty function for that purpose.
-      // Look through this code for an example of how to do use the insertProperty function.
-      // WARNING! You are inserting something that will have to result in a valid Javascript
-      // syntax because the substitution of {{randomCategoryShortName}} becomes an argument
-      // being passed into the $dc.loadMenuItems function. Think about what that argument needs
-      // to look like. For example, a valid call would look something like this:
+      // ÉTAPE 3 : Remplacez {{randomCategoryShortName}} dans l'extrait html d'accueil par le
+      // catégorie choisie à partir de l'ÉTAPE 2. Utilisez la fonction insertProperty existante à cette fin.
+      // Parcourez ce code pour un exemple d'utilisation de la fonction insertProperty.
+      // ATTENTION! Vous insérez quelque chose qui devra se traduire par un Javascript valide
+      // syntaxe car la substitution de {{randomCategoryShortName}} devient un argument
+      // étant transmis à la fonction $dc.loadMenuItems. Réfléchissez à ce dont cet argument a besoin
+      // ressembler à. Par exemple, un appel valide ressemblerait à ceci :
       // $dc.loadMenuItems('L')
-      // Hint: you need to surround the chosen category short name with something before inserting
-      // it into the home html snippet.
+      // Astuce : vous devez entourer le nom court de la catégorie choisie de quelque chose avant de l'insérer
+      // dans l'extrait html d'accueil.
       //
       // var homeHtmlToInsertIntoMainPage = ....
 
 
-      // TODO: STEP 4: Insert the the produced HTML in STEP 3 into the main page
-      // Use the existing insertHtml function for that purpose. Look through this code for an example
-      // of how to do that.
-      // ....
+      // ÉTAPE 4 : Insérez le HTML produit à l'ÉTAPE 3 dans la page principale
+       // Utilisez la fonction insertHtml existante à cette fin. Regardez à travers ce code pour un exemple
+       // de comment faire ça.
+       // ....
 
     },
-    false); // False here because we are getting just regular HTML from the server, so no need to process JSON.
+    false); // False ici car nous n'obtenons que du HTML régulier du serveur, donc pas besoin de traiter JSON.
 }
 
 
-// Given array of category objects, returns a random category object.
+// Donne un tableau d'objets de catégorie, renvoie un objet de catégorie aléatoire.
 function chooseRandomCategory (categories) {
-  // Choose a random index into the array (from 0 inclusively until array length (exclusively))
+  // Choisir un index aléatoire dans le tableau (de 0 inclus jusqu'à la longueur du tableau (exclusivement))
   var randomArrayIndex = Math.floor(Math.random() * categories.length);
 
   // return category object with that randomArrayIndex
